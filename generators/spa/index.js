@@ -232,7 +232,7 @@ module.exports = class extends DnnGeneratorBase {
 
       this._writeBabelRc();
 
-      const pkgJson = {
+      let pkgJson = {
         devDependencies: {
           '@babel/core': '^7.2.2',
           '@babel/plugin-proposal-class-properties': '^7.2.1',
@@ -268,10 +268,13 @@ module.exports = class extends DnnGeneratorBase {
           'webpack-node-externals': '^1.7.2'
         },
         dependencies: {
-          'prop-types': '^15.6.2',
-          // eslint-disable-next-line prettier/prettier
-          'react': '^16.6.3',
-          'react-dom': '^16.6.3'
+          "@testing-library/jest-dom": "^5.16.5",
+          "@testing-library/react": "^13.4.0",
+          "@testing-library/user-event": "^13.5.0",
+          "react": "^18.2.0",
+          "react-dom": "^18.2.0",
+          "react-scripts": "5.0.1",
+          "web-vitals": "^2.1.4"
         }
       };
 
