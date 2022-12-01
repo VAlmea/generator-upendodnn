@@ -14,11 +14,7 @@ module.exports = class extends DnnGeneratorBase {
         choices: [
           { name: 'ReactJS', value: 'ReactJS' },
           { name: 'VueJS', value: 'VueJS' },
-          {
-            name: chalk.gray('Angular'),
-            value: 'angular',
-            disabled: chalk.gray('Coming Soon')
-          }
+          { name: 'Angular', value: 'Angular' }
         ]
       },
       {
@@ -304,17 +300,23 @@ module.exports = class extends DnnGeneratorBase {
           template
         );
 
+        pkgJson.dependencies = {
+          ...pkgJson.dependencies,
+          '@types/jest': '^27.5.2',
+          '@types/node': '^16.18.3',
+          '@types/react': '^18.0.25',
+          '@types/react-dom': '^18.0.9',
+          'typescript': '^4.9.3',
+        }
+
         pkgJson.devDependencies = {
           ...pkgJson.devDependencies,
-          '@types/react': '^16.0.34',
-          '@types/react-dom': '^16.0.3',
           'ts-loader': '^5.3.3',
           // eslint-disable-next-line prettier/prettier
           'tslint': '^5.12.1',
           'tslint-loader': '^3.5.4',
           'tslint-react': '^3.6.0',
           // eslint-disable-next-line prettier/prettier
-          'typescript': '^3.2.2',
         };
       }
 
@@ -350,6 +352,42 @@ module.exports = class extends DnnGeneratorBase {
         this.fs.extendJSON(launchJsonPath, launchJson);
       }
     } else if (spaType === "VueJS") {
+      this.fs.copyTpl(
+        this.templatePath(spaPath + 'Module.csproj'),
+        this.destinationPath(moduleName + '/' + moduleName + '.csproj'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(spaPath + 'Module.dnn'),
+        this.destinationPath(moduleName + '/' + moduleName + '.dnn'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(spaPath + 'symbols.dnn'),
+        this.destinationPath(moduleName + '/' + moduleName + '_Symbols.dnn'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(spaPath + 'Data/ModuleContext.cs'),
+        this.destinationPath(moduleName + '/Data/' + moduleName + 'Context.cs'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(spaPath + 'common/**'),
+        this.destinationPath(moduleName + '/.'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('../../common/branding/Images/**'),
+        this.destinationPath(moduleName + '/Images'),
+        template
+      );
+    }else if (spaType === "Angular") {
       this.fs.copyTpl(
         this.templatePath(spaPath + 'Module.csproj'),
         this.destinationPath(moduleName + '/' + moduleName + '.csproj'),
