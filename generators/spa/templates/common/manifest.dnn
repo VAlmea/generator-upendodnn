@@ -98,7 +98,7 @@
           <assemblies>
             <assembly>
               <path>bin</path>
-              <name><%= namespace %>.<%= moduleName %>.dll</name>
+              <name><%= fullNamespace %>.dll</name>
               <version><%= version %></version>
             </assembly>
           </assemblies>
