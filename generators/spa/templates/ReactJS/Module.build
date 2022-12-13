@@ -16,14 +16,10 @@
     <ItemGroup>
       <Manifest Include="*.dnn;*.dnn5;*.dnn6" />
       <TextFiles Include="*.txt" Exclude="releasenotes.txt;license.txt" />
-      <SourceFiles Include="*.css;*.htm;*.html" />
-      <Views Include="*.ascx;" />
       <ResourceFiles Include="App_LocalResources/*.resx" />
-      <Images Include="Images/**/*.*" />
-      <JsFiles Include="Scripts/**/*.*" Exclude="client-app/**" />
-      <Styles Include="Styles/**/*.*" />
-      <DataProvider Include="Providers/DataProviders/SqlDataProvider/*.SqlDataProvider" />
-      <Resources Include="@(Manifest);@(TextFiles);@(SourceFiles);@(Views);@(ResourceFiles);@(Images);@(JsFiles);@(Styles);@(DataProvider)" />
+      <SourceFiles Include="dist/**" Exclude="providers/**;bin/**" />
+      <DataProvider Include="dist/Providers/DataProviders/SqlDataProvider/*.SqlDataProvider" />
+      <Resources Include="@(Manifest);@(TextFiles);@(ResourceFiles);@(DataProvider);@(SourceFiles)" />
     </ItemGroup>
   </Target>
   <ItemGroup>
@@ -41,12 +37,8 @@
   <Target Name="DebugProject" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Copy SourceFiles="@(Manifest)" DestinationFolder="$(FullModulePath)" />
     <Copy SourceFiles="@(TextFiles)" DestinationFolder="$(FullModulePath)" />
-    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(FullModulePath)" />
-    <Copy SourceFiles="@(Views)" DestinationFolder="$(FullModulePath)" />
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(FullModulePath)\dist\%(RecursiveDir)" />
     <Copy SourceFiles="@(ResourceFiles)" DestinationFolder="$(FullModulePath)\App_LocalResources" />
-    <Copy SourceFiles="@(Images)" DestinationFolder="$(FullModulePath)\Images\%(RecursiveDir)" />
-    <Copy SourceFiles="@(JsFiles)" DestinationFolder="$(FullModulePath)\Scripts\%(RecursiveDir)" />
-    <Copy SourceFiles="@(Styles)" DestinationFolder="$(FullModulePath)\Styles\%(RecursiveDir)" />
     <Copy SourceFiles="@(DataProvider)" DestinationFolder="$(FullModulePath)\Providers\DataProviders\SqlDataProvider" />
   </Target>
   <Target Name="BuildVueClientApp">
@@ -55,7 +47,7 @@
       <Output TaskParameter="Include" ItemName="deleteVueFiles" />
     </CreateItem>
     <Delete ContinueOnError="true" Files="@(deleteVueFiles)"></Delete>
-    <Exec Condition="$(Configuration) == 'Debug'" Command="npm run build" />
-    <Exec Condition="$(Configuration) == 'Release'" Command="npm run build" />
+    <Exec Condition="$(Configuration) == 'Debug'" Command="npm run build-client" />
+    <Exec Condition="$(Configuration) == 'Release'" Command="npm run build-client" />
   </Target>
 </Project>

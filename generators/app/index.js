@@ -18,7 +18,7 @@ module.exports = class extends Generator {
     this.log(
       yosay(
         'Welcome to the\n' +
-        chalk.yellow('Vicente') +
+        chalk.yellow('Upendo Ventures') +
         ' ' +
         chalk.bold.blue('DNN') +
         '\nproject generator! '

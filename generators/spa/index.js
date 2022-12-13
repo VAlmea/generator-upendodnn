@@ -209,8 +209,14 @@ module.exports = class extends DnnGeneratorBase {
       );
 
       this.fs.copyTpl(
-        this.templatePath('../../common/csproj/_Project.csproj'),
+        this.templatePath(spaType + '/Module.csproj'),
         this.destinationPath(moduleName + '/' + moduleName + '.csproj'),
+        template
+      );
+
+      this.fs.copyTpl(
+        this.templatePath(spaType + '/Module.build'),
+        this.destinationPath(moduleName + '/Module.build'),
         template
       );
 
@@ -254,7 +260,7 @@ module.exports = class extends DnnGeneratorBase {
           'html-webpack-plugin': '^3.2.0',
           // eslint-disable-next-line prettier/prettier
           'marked': '^0.5.2',
-          'node-sass': '^4.11.0',
+          'node-sass': '^8.0.0',
           'sass-loader': '^7.1.0',
           'style-loader': '^0.23.1',
           // eslint-disable-next-line prettier/prettier
@@ -423,6 +429,37 @@ module.exports = class extends DnnGeneratorBase {
         this.destinationPath(moduleName + '/Images'),
         template
       );
+
+      let pkgJson = {
+        "private": true,
+        "dependencies": {
+          "@angular/animations": "^14.0.0",
+          "@angular/common": "^14.0.0",
+          "@angular/compiler": "^14.0.0",
+          "@angular/core": "^14.0.0",
+          "@angular/forms": "^14.0.0",
+          "@angular/platform-browser": "^14.0.0",
+          "@angular/platform-browser-dynamic": "^14.0.0",
+          "@angular/router": "^14.0.0",
+          "rxjs": "~7.5.0",
+          "tslib": "^2.3.0",
+          "zone.js": "~0.11.4"
+        },
+        "devDependencies": {
+          "@angular-devkit/build-angular": "^14.2.1",
+          "@angular/cli": "~14.2.1",
+          "@angular/compiler-cli": "^14.0.0",
+          "@types/jasmine": "~4.0.0",
+          "jasmine-core": "~4.3.0",
+          "karma": "~6.4.0",
+          "karma-chrome-launcher": "~3.1.0",
+          "karma-coverage": "~2.2.0",
+          "karma-jasmine": "~5.1.0",
+          "karma-jasmine-html-reporter": "~2.0.0",
+          "typescript": "~4.7.2"
+        }
+      };
+      this.fs.extendJSON(this.destinationPath(moduleName + '/package.json'), pkgJson);
     }
   }
 
