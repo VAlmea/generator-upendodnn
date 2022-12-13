@@ -101,49 +101,18 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\BaseClasses\ApiControllerBase.cs" />
-    <Compile Include="Components\DataProviderHelper.cs" />
     <Compile Include="Components\FeatureController.cs" />
-    <Content Include="Scripts\ItemView.js" />
-    <Content Include="Scripts\QuickSettings.js" />
-    <Compile Include="Data\DnnDbConfiguration.cs" />
-    <Compile Include="Data\Item.cs" />
-    <Compile Include="Data\<%= moduleName %>Context.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\ItemController.cs" />
-    <Compile Include="Services\ServiceRouteMapper.cs" />
-    <Compile Include="Services\UserController.cs" />
-    <Compile Include="Services\ViewModels\ItemViewModel.cs" />
-    <Compile Include="Services\ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\logo.png" />
-    <Content Include="Edit.html" />
-    <Content Include="License.txt" />
-    <Content Include="module.css" />
-    <Content Include="ReleaseNotes.txt" />
-    <Content Include="Settings.html" />
-    <Content Include="View.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="web.config" />
-    <Content Include="Module.build">
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
+    <Content Include="src\Edit.Html" /> 
+    <Content Include="src\Settings.html" />
+    <Content Include="src\View.html" />
   </ItemGroup>
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

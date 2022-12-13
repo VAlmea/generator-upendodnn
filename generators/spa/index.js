@@ -294,8 +294,7 @@ module.exports = class extends DnnGeneratorBase {
           // eslint-disable-next-line prettier/prettier
           'eslint': '^5.8.0',
           'eslint-loader': '^2.1.1',
-          'eslint-plugin-react': '^7.11.1',
-          'react-hot-loader': '^4.3.12'
+          'eslint-plugin-react': '^7.11.1'    
         };
       } else {
         this._writeTsConfig();
