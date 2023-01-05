@@ -127,7 +127,6 @@ module.exports = class extends DnnGeneratorBase {
       dnnRoot: this.options.dnnRoot,
       msBuildVersion: this.props.msBuildVersion
     };
-
     if (spaType === "ReactJS") {
       this.fs.copyTpl(
         this.templatePath('../../common/build/*.*'),
@@ -294,7 +293,7 @@ module.exports = class extends DnnGeneratorBase {
           // eslint-disable-next-line prettier/prettier
           'eslint': '^5.8.0',
           'eslint-loader': '^2.1.1',
-          'eslint-plugin-react': '^7.11.1'    
+          'eslint-plugin-react': '^7.11.1'
         };
       } else {
         this._writeTsConfig();
@@ -392,7 +391,7 @@ module.exports = class extends DnnGeneratorBase {
         this.destinationPath(moduleName + '/Images'),
         template
       );
-    }else if (spaType === "Angular") {
+    } else if (spaType === "Angular") {
       this.fs.copyTpl(
         this.templatePath(spaPath + 'Module.csproj'),
         this.destinationPath(moduleName + '/' + moduleName + '.csproj'),
@@ -463,16 +462,20 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   install() {
-    if (this.props.spaType !== "VueJS")
-      this._writeSolution();
-    this._defaultInstall();
+    this._writeSolution();
+    if (this.props.spaType !== "VueJS") {
+      try {
+        this._defaultInstall();
+      } catch { }
+    }
   }
 
   end() {
     this.log(chalk.white('Installed Dependencies.'));
     this.log(chalk.white('Running dotnet restore.'));
-    this.spawnCommand('dotnet', ['restore']);
-    process.chdir('../');
-    this.log(chalk.white('All Ready!'));
+    process.chdir('Modules/' + this.props.moduleName);
+    this.spawnCommand('dotnet', ['restore'], { cwd: process.cwd() }).then(() => {
+      this.log(chalk.white('All Ready!'));
+    });
   }
 };

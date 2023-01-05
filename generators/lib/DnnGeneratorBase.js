@@ -1,11 +1,12 @@
 'use strict';
+const _extend = require("lodash/extend");
 const Generator = require('yeoman-generator');
+_extend(Generator.prototype, require("yeoman-generator/lib/actions/install"));
 const chalk = require('chalk');
 const uuid = require('uuid-v4');
 const pascalCase = require('pascal-case');
 const which = require('which');
 const fs = require('fs');
-
 module.exports = class DnnGeneratorBase extends Generator {
   constructor(args, opts) {
     super(args, opts);
@@ -77,7 +78,7 @@ module.exports = class DnnGeneratorBase extends Generator {
   }
 
   _getNamespace() {
-    let namespace = this.props.company;
+    let namespace = this.props.namespace;
     if (this.props.extensionType != undefined && this.props.extensionType != "") {
       namespace = namespace + "." + this.props.extensionType;
     }
